@@ -1,0 +1,15 @@
+apiVersion: crd.projectcalico.org/v1
+kind: GlobalNetworkPolicy
+metadata:
+  name: allow-dns
+spec:
+  order: 50
+  selector: projectcalico.org/namespace not in  {'kube-system', 'calico-system', 'calico-apiserver'}
+  types:
+  - Egress
+  egress:
+  - action: Allow
+    protocol: TCP
+    destination:
+      ports:
+      - 443
